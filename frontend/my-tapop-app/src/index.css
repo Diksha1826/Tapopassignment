@@ -15,12 +15,17 @@ input{
   border-radius: 0.4rem;
   color: white;
   width: 100%;
+  height: 40px;
   font-size: 1rem;
   &:focus{
       border: 0.1rem solid #997af0;
       outline: none;
   }     
 } 
+
+option{
+  color: rgb(97, 94, 94);
+}
 
 button{ 
   background-color: #997af0; 
