@@ -29,8 +29,8 @@ export const Login = () => {
       if (response.data.success === true) {
         await signInWithEmailAndPassword(firebaseAuth, email, password);
         localStorage.setItem(
-          "tapopuser",
-          JSON.stringify(response.data.user.username)
+          "tapopuseremail",
+          JSON.stringify(response.data.user.email)
         );
         navigate("/");
       }

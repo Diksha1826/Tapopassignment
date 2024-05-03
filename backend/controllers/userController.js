@@ -1,40 +1,9 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
-module.exports.RegisterUser = async (req, res) => {
-  try {
-    const { username, email, password, phonenumber } = req.body;
-    const user = await User.findOne({ email });
-    if (user) {
-      return res.json({
-        success: false,
-        message: "User already exists",
-      });
-    }
 
-    //hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
 
-    //saving user
-    const newUser = await User.create({
-      username,
-      email,
-      password: hashedPassword,
-      phonenumber,
-    });
-    res.send({
-      success: true,
-      message: "user created successfully",
-      newUser,
-    });
-  } catch (error) {
-    return res.json({
-      success: false,
-      message: "Error User Registration",
-    });
-  }
-};
+module.exports.RegisterUser =
 
 module.exports.LoginUser = async (req, res) => {
   try {
@@ -56,7 +25,7 @@ module.exports.LoginUser = async (req, res) => {
     delete user.password;
     return res.json({
       success: true,
-      message: `Welcome ${user.username}`,
+      message: "login successful",
       user,
     });
   } catch (error) {
@@ -66,3 +35,29 @@ module.exports.LoginUser = async (req, res) => {
     });
   }
 };
+
+
+module.exports.GetCurrentUser = async(req, res)=>{
+  try {
+    // console.log(req.body);
+    const user = await User.findOne(req.body);
+    if (!user) {
+      return res.error({
+        success: false,
+        message: "current user not there",
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "fetched currentuser successfully",
+      user,
+    });
+    
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+}

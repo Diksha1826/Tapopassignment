@@ -11,21 +11,35 @@ import {
 import { firebaseAuth } from "../utils/firebaseconfig";
 
 export const Register = () => {
+  const [file, setFile] = useState();
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
     phonenumber: "",
     username: "",
+    country: "",
+    gender: "",
   });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("username" , formValues.username);
+      formData.append("password", formValues.password);
+      formData.append("email", formValues.email);
+      formData.append("phonenumber", formValues.phonenumber);
+      formData.append("country", formValues.country);
+      formData.append("gender", formValues.gender);
+
+      
+
       toast.loading("Loading ..." , {theme: "dark" , position:"top-right"})
       const response = await axios.post(
         "http://localhost:5000/api/users/register-user",
-        formValues
+        formData 
       );
       if (response.data.success === false) {
         toast.error(response.data.message, toastOptions);
@@ -34,8 +48,8 @@ export const Register = () => {
         const { email, password } = formValues;
         await createUserWithEmailAndPassword(firebaseAuth, email, password);
         localStorage.setItem(
-          "tapopuser",
-          JSON.stringify(response.data.newUser.username)
+          "tapopuseremail",
+          JSON.stringify(response.data.newUser.email)
         );
         navigate("/");
       }
@@ -50,10 +64,8 @@ export const Register = () => {
     });
   }, []);
 
-  const [file, setFile] = useState();
     function handleImageChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
     }
   
 
@@ -110,14 +122,14 @@ export const Register = () => {
           <div>
             <h2 className="mb-1 font-semibold" >Gender</h2>
           <div className="flex w-3 h-4 items-center gap-1 mb-1">
-          <input className="w-3" type="radio" name="gender" /> <label>Male</label>
+          <input className="w-3" type="radio" name="gender" onChange={(e)=>handleChange(e)} /> <label>Male</label>
           </div>
           <div className="flex w-3 h-4 items-center gap-1">
-          <input className="w-3" type="radio" name="gender" /> <label>Female</label>
+          <input className="w-3" type="radio" name="gender" onChange={(e)=>handleChange(e)} /> <label>Female</label>
           </div>
           </div>
           <div>
-            <select name="country" style={{color:"gray"}} className="rounded h-7 w-full">
+            <select name="country" style={{color:"gray"}} className="rounded h-7 w-full" onChange={(e)=>handleChange(e)}>
               <option value="">--choose country--</option>
               <option value="Australia">Australia</option>
               <option value="Brazil">Brazil</option>
@@ -133,7 +145,7 @@ export const Register = () => {
               <option value="United Kingdom">United Kingdom</option>
             </select>
           </div>
-          <input type="file" onChange={(e)=>handleImageChange(e)} placeholder="profile picture" />
+          <input name="profilepic" type="file" onChange={(e)=>handleImageChange(e)} placeholder="profile picture" />
           <button type="submit">Create User</button>
           <span className="-mt-3">
             Alredy have an account ? <Link to={"/login"}>Login</Link>

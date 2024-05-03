@@ -4,7 +4,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseconfig";
 
-export const Navbar = () => {
+export const Navbar = ({userData}) => {
   return (
     <div
       style={{ background: "black" }}
@@ -18,11 +18,12 @@ export const Navbar = () => {
         <span>Contact us</span>
         <span>Settings</span>
       </div>
-      <div className="flex justify-between w-1/12 items-center">
-        <img src="" alt="profilepic" />
+      <div className="flex justify-evenly w-1/12 items-center">
+        <img className="h-9 w-9 rounded-full hover:h-16  hover:w-16 hover:absolute hover:transition duration-700 ease-in-out" src={userData.profilePic} alt="profilepic" />
+        
         <FaPowerOff
           onClick={() => {
-            localStorage.removeItem("tapopuser");
+            localStorage.removeItem("tapopuseremail");
             signOut(firebaseAuth);
           }}
         />
