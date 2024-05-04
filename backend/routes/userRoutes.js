@@ -57,6 +57,35 @@ async (req, res) => {
 );
 
 
+userRouter.post("/register-user-google" , async(req, res)=>{
+  try {
+    const { username, email } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({
+        success: true,
+        message: "User already exists",
+      });
+    }
+
+    const newUser = await User.create({
+      username,
+      email,
+    });
+    res.send({
+      success: true,
+      message: "user created successfully",
+      newUser,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Error User Registration",
+    });
+  }
+})
+
+
 
 
 

@@ -42,12 +42,11 @@ module.exports.GetCurrentUser = async(req, res)=>{
     // console.log(req.body);
     const user = await User.findOne(req.body);
     if (!user) {
-      return res.error({
+      return res.json({
         success: false,
         message: "current user not there",
       });
     }
-
     return res.json({
       success: true,
       message: "fetched currentuser successfully",

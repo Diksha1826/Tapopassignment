@@ -13,19 +13,26 @@ const userSchema = new mongoose.Schema({
     } ,
     password:{
         type: String ,
-        required: true ,
+        default: "",
+
+        // required: true ,
     } ,
     phonenumber:{
         type: Number ,
-        required: true ,
+        default: "",
+
+        // required: true ,
     } ,
     gender:{
         type: String ,
-        required: true 
+        default: "",
+
+        // required: true 
     } ,
     country:{
         type: String ,
-        required: true 
+        default: "",
+
     } ,
     profilePic: {
         type: String ,

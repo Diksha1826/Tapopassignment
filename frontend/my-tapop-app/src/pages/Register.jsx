@@ -34,8 +34,6 @@ export const Register = () => {
       formData.append("country", formValues.country);
       formData.append("gender", formValues.gender);
 
-      
-
       toast.loading("Loading ..." , {theme: "dark" , position:"top-right"})
       const response = await axios.post(
         "http://localhost:5000/api/users/register-user",
@@ -67,6 +65,7 @@ export const Register = () => {
     function handleImageChange(e) {
         setFile(e.target.files[0]);
     }
+
   
 
   const handleChange = (e) => {
@@ -86,10 +85,10 @@ export const Register = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 h-lvh w-lvw justify-center items-center bg-background">
+      <div className="flex flex-col gap-4 justify-center items-center bg-background">
         <form
           className=" flex flex-col px-20 py-12 gap-4 w-1/3"
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={(e)=>handleSubmit(e)}
         >
           <div className="flex items-center gap-4 justify-center">
             <img className="h-20 " src={logo} alt="logo" />

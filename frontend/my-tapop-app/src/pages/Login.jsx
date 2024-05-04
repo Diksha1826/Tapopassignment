@@ -4,8 +4,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import logo from "../assets/logo.svg";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth } from "../utils/firebaseconfig";
+import {signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth ,  provider  } from "../utils/firebaseconfig";
+
+
 
 export const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -45,6 +47,35 @@ export const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+
+
+  const handleGoogle = async(e)=>{
+    e.preventDefault();
+   const data =  await signInWithPopup(firebaseAuth , provider)
+  //  console.log(data);
+    localStorage.setItem("tapopuseremail" , JSON.stringify(data.user.email))
+
+    toast.loading("Loading ..." , {theme: "dark" , position:"top-right"})
+
+    const responseofgoogle = await axios.post(
+      "http://localhost:5000/api/users/register-user-google",
+      ({email: data.user.email , username: data.user.displayName})
+    );
+
+    const response = await axios.post(
+      "http://localhost:5000/api/users/get-current-user",
+      ({email: data.user.email})
+    );
+    if (response.data.success === false) {
+      toast.error(response.data.message, toastOptions);
+    }
+    if (response.data.success === true) {
+      navigate("/");
+    }
+  }
+
+
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -87,6 +118,8 @@ export const Login = () => {
           <span className="-mt-5">
             Don't have an account ? <Link to={"/register"}>Register</Link>
           </span>
+          <button onClick={(e)=>handleGoogle(e)}>Signin With Google</button>
+
         </form>
       </div>
       <ToastContainer />
