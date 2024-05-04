@@ -34,7 +34,7 @@ export const Login = () => {
           "tapopuseremail",
           JSON.stringify(response.data.user.email)
         );
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       toast.error(error.message, toastOptions);
@@ -71,7 +71,7 @@ export const Login = () => {
       toast.error(response.data.message, toastOptions);
     }
     if (response.data.success === true) {
-      navigate("/");
+      navigate("/profile");
     }
   }
 
@@ -79,7 +79,7 @@ export const Login = () => {
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
-      if (currentUser) navigate("/");
+      if (currentUser) navigate("/profile");
     });
   }, []);
 

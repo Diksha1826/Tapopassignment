@@ -14,20 +14,14 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String ,
         default: "",
-
-        // required: true ,
     } ,
     phonenumber:{
         type: Number ,
         default: "",
-
-        // required: true ,
     } ,
     gender:{
         type: String ,
         default: "",
-
-        // required: true 
     } ,
     country:{
         type: String ,

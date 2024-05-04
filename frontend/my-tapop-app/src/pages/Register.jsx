@@ -49,7 +49,7 @@ export const Register = () => {
           "tapopuseremail",
           JSON.stringify(response.data.newUser.email)
         );
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       toast.error(error.message, toastOptions);
@@ -58,7 +58,7 @@ export const Register = () => {
 
   useEffect(()=>{
     onAuthStateChanged(firebaseAuth, (currentUser) => {
-      if (currentUser) navigate("/");
+      if (currentUser) navigate("/profile");
     });
   }, []);
 
@@ -85,7 +85,7 @@ export const Register = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 justify-center items-center bg-background">
+      <div className="flex flex-col gap-4 h-lvh justify-center items-center bg-background">
         <form
           className=" flex flex-col px-20 py-12 gap-4 w-1/3"
           onSubmit={(e)=>handleSubmit(e)}
@@ -144,7 +144,7 @@ export const Register = () => {
               <option value="United Kingdom">United Kingdom</option>
             </select>
           </div>
-          <input name="profilepic" type="file" onChange={(e)=>handleImageChange(e)} placeholder="profile picture" />
+          <input className="h-16" name="profilepic" type="file" onChange={(e)=>handleImageChange(e)} placeholder="profile picture" />
           <button type="submit">Create User</button>
           <span className="-mt-3">
             Alredy have an account ? <Link to={"/login"}>Login</Link>

@@ -39,7 +39,6 @@ module.exports.LoginUser = async (req, res) => {
 
 module.exports.GetCurrentUser = async(req, res)=>{
   try {
-    // console.log(req.body);
     const user = await User.findOne(req.body);
     if (!user) {
       return res.json({
