@@ -1,5 +1,21 @@
 Tapop Internship Assessment
 
+how to run project locally 
+
+Backend Usage
+Clone this repository.
+Move to the backend folder by command : "cd/backend".
+Install all the dependencies using : "npm install".
+Than start the server by : "npm run dev".
+
+Frontend Usage
+Clone this repository.
+Move to the frontend folder by command : "cd/frontend/my-tapop-app".
+Install all the dependencies using : "npm install".
+Than start the server by : "npm start".
+Project will start in local server.
+
+
 Frontend Tech Stack
 React: Version 18.3.1
 React DOM: Version 18.3.1
