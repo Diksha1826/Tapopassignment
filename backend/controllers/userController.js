@@ -2,9 +2,6 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
 
-
-module.exports.RegisterUser =
-
 module.exports.LoginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

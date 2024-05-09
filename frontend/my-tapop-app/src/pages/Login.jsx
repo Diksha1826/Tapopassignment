@@ -25,7 +25,7 @@ export const Login = () => {
         "http://localhost:5000/api/users/login-user",
         formValues
       );
-      if (response.data.success === false) {
+      if (response.data.success === false){
         toast.error(response.data.message, toastOptions);
       }
       if (response.data.success === true) {
@@ -74,8 +74,6 @@ export const Login = () => {
       navigate("/profile");
     }
   }
-
-
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
